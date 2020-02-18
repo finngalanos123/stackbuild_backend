@@ -27,9 +27,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const path = require('path');
 
-let dist = path.join(__dirname, '/dist');
+let dist = path.join(__dirname, '/dist/');
 if (process.env.NODE_ENV === 'production') {
-    dist = path.join(__dirname, '/dist')
+    dist = path.join(__dirname, '/dist/')
 }
 // Separating Angular routes
 app.get('*', (req, res) => {
