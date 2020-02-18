@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // app.use(passport.initialize({}));
 
 // Routes
-app.use('/auth', require('./routes/auth'));
+// app.use('/auth', require('./routes/auth'));
 app.use('/api/user', require('./routes/auth'));
 
 
