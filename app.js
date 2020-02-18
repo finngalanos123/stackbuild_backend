@@ -24,6 +24,9 @@ require('dotenv').config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+
+const path = require('path');
+
 let dist = path.join(__dirname, '/dist');
 if (process.env.NODE_ENV === 'production') {
     dist = path.join(__dirname, '/dist')
