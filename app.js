@@ -42,9 +42,9 @@ app.use('/api/user', require('./routes/auth'));
 const path = require('path');
 
 let dist = path.join(__dirname, '/dist/');
-console.log(dist)
 if (process.env.NODE_ENV === 'production') {
     dist = path.join(__dirname, '/dist/')
+console.log(dist)
 }
 // Separating Angular routes
 app.get('*', (req, res, next) => {
