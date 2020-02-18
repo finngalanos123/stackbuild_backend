@@ -24,6 +24,28 @@ require('dotenv').config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+let dist = path.join(__dirname, '/dist');
+if (process.env.NODE_ENV === 'production') {
+    dist = path.join(__dirname, '/dist')
+}
+// Separating Angular routes
+app.get('*', (req, res) => {
+    fixRoutes(req, res);
+});
+
+
+fixRoutes = (req, res) => {
+    app.use(express.static(dist));
+    app.get('*', (req, res, next) => {
+        if (!req.url.includes('phpmyadmin')) {
+            res.sendFile(dist + 'index.html');
+        }
+
+        next();
+
+    });
+};
+
 
 // Passport.js config
 // const passport = require('passport');
