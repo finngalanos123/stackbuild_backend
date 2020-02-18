@@ -56,5 +56,5 @@ exports.logout = (req, res) => {
 };
 
 exports.register = (req, res) => {
-
+    console.log('registerssss')
 };
