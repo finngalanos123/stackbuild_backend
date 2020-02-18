@@ -42,6 +42,7 @@ fixRoutes = (req, res) => {
     console.log(dist)
     app.use(express.static(dist));
     app.get('*', (req, res, next) => {
+        console.log(req.url)
         if (!req.url.includes('phpmyadmin')) {
             res.sendFile(dist + 'index.html');
         }
