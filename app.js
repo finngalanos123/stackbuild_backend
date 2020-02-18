@@ -47,24 +47,27 @@ if (process.env.NODE_ENV === 'production') {
     dist = path.join(__dirname, '/dist/')
 }
 // Separating Angular routes
-app.get('*', (req, res) => {
+app.get('*', (req, res, next) => {
     console.log('fix routes')
-    fixRoutes(req, res);
+    fixRoutes(req, res, next);
 });
 
 
-fixRoutes = (req, res) => {
+fixRoutes = (req, res, next) => {
     console.log(dist)
     app.use(express.static(dist));
     console.log(req.url)
-    app.get('*', (req, res, next) => {
-        if (!req.url.includes('phpmyadmin')) {
-            res.sendFile(dist + 'index.html');
-        }
 
-        next();
+    if (!req.url.includes('phpmyadmin')) {
+        res.sendFile(dist + 'index.html');
+    }
 
-    });
+    next();
+    //
+    // app.get('*', (req, res, next) => {
+    //
+    //
+    // });
 };
 
 
