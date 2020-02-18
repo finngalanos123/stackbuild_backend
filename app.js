@@ -33,11 +33,13 @@ if (process.env.NODE_ENV === 'production') {
 }
 // Separating Angular routes
 app.get('*', (req, res) => {
+    console.log('fix routes')
     fixRoutes(req, res);
 });
 
 
 fixRoutes = (req, res) => {
+    console.log(dist)
     app.use(express.static(dist));
     app.get('*', (req, res, next) => {
         if (!req.url.includes('phpmyadmin')) {
