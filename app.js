@@ -25,9 +25,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
+
+
+
+// Passport.js config
+// const passport = require('passport');
+// require('./config/google-passport-strategy')(passport);
+// require('./config/facebook-passport-strategy')(passport);
+// app.use(passport.initialize({}));
+
+// Routes
+app.use('/auth', require('./routes/auth'));
+app.use('/api/user', require('./routes/auth'));
+
+
 const path = require('path');
 
 let dist = path.join(__dirname, '/dist/');
+console.log(dist)
 if (process.env.NODE_ENV === 'production') {
     dist = path.join(__dirname, '/dist/')
 }
@@ -51,18 +66,6 @@ fixRoutes = (req, res) => {
 
     });
 };
-
-
-// Passport.js config
-// const passport = require('passport');
-// require('./config/google-passport-strategy')(passport);
-// require('./config/facebook-passport-strategy')(passport);
-// app.use(passport.initialize({}));
-
-// Routes
-app.use('/auth', require('./routes/auth'));
-app.use('/api/user', require('./routes/auth'));
-
 
 
 
