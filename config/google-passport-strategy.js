@@ -3,7 +3,6 @@ const Users = db.users;
 const to = require('../helpers/getPromiseResult');
 const GoogleStrategy = require('passport-google-oauth20');
 
-
 // Strategy config
 module.exports = (passport) => {
     passport.use(new GoogleStrategy({
