@@ -61,6 +61,7 @@ fixRoutes = (req, res, next) => {
     console.log(!req.url.includes('phpmyadmin'))
     if (!req.url.includes('phpmyadmin')) {
         console.log('includes')
+        console.log(dist + 'index.html')
         res.sendFile(dist + 'index.html');
     }
 
