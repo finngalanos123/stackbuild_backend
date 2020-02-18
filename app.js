@@ -42,6 +42,7 @@ app.use('/api/user', require('./routes/auth'));
 const path = require('path');
 
 let dist = path.join(__dirname, '/dist/');
+console.log(process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'production') {
     dist = path.join(__dirname, '/dist/')
 console.log(dist)
