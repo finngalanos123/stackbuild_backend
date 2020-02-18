@@ -19,15 +19,18 @@ router.get('/facebook/callback', passport.authenticate('facebook', {
     session: false
 }), (req, res) => {
     let token = jwt.sign(req.user, 'secretkey', {expiresIn: '8h'});
-    res.redirect(`${process.env.FRONT_URL}/?token=${token}`);
+    res.redirect(`${process.env.FRONTEND_URL}/?token=${token}`);
 });
 
 // Passport.js Facebook-token auth route
-router.post('/facebook/token', passport.authenticate('facebook-token', {session: false}), (req, res) => {
+router.post('/facebook/token', passport.authenticate('facebook-token', {
+    session: false,
+    scope: ['email']
+}), (req, res) => {
     if (!req.user) {
         return res.send(401, 'User Not Authenticated');
     } else {
-        let token = jwt.sign(req.user, 'secretkey', {expiresIn: '8h'});
+        let token = jwt.sign({email: req.user.email}, 'secretkey', {expiresIn: '8h'});
         res.json({token});
     }
 });
@@ -41,7 +44,7 @@ router.get('/google/callback', passport.authenticate('google', {
     session: false
 }), (req, res) => {
     let token = jwt.sign(req.user, 'secretkey', {expiresIn: '8h'});
-    res.redirect(`${process.env.FRONT_URL}/?token=${token}`);
+    res.redirect(`${process.env.FRONTEND_URL}/?token=${token}`);
 });
 
 

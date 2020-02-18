@@ -5,7 +5,6 @@ const Users = db.users;
 
 const showIfErrors = require('../helpers/showIfErrors');
 
-
 exports.login = async (req, res) => {
 
     // Checking validation result from express-validator
