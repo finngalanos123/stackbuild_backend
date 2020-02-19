@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // app.use(passport.initialize({}));
 
 // Routes
-// app.use('/auth', require('./routes/auth'));
+app.use('/auth', require('./routes/auth'));
 app.use('/api/user', require('./routes/auth'));
 
 
@@ -41,23 +41,15 @@ const path = require('path');
 
 let dist = path.join(__dirname, '/dist/');
 
-console.log(process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'production') {
     dist = path.join(__dirname, '/dist/')
 }
 app.use(express.static(dist));
 // Separating Angular routes
 app.get('*', (req, res, next) => {
-    if (!res.headersSent) {
-        console.log('!!!!'+dist + 'index.html')
+    if (!req.url.includes('phpmyadmin')) {
         res.sendFile(dist + 'index.html');
     }
-    if (!req.url.includes('phpmyadmin')) {
-        // res.set({'Content-Length': 70, 'Content-Range': 'bytes 0-999/*'});
-
-    }
-
-    // next();
 });
 
 
