@@ -25,9 +25,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-
-
-
 // Passport.js config
 // const passport = require('passport');
 // require('./config/google-passport-strategy')(passport);
@@ -41,34 +38,27 @@ app.use('/api/user', require('./routes/auth'));
 
 const path = require('path');
 
+
 let dist = path.join(__dirname, '/dist/');
+
 console.log(process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'production') {
     dist = path.join(__dirname, '/dist/')
-console.log(dist)
 }
+app.use(express.static(dist));
 // Separating Angular routes
 app.get('*', (req, res, next) => {
-    console.log('fix routes')
-    fixRoutes(req, res, next);
-});
-
-
-fixRoutes = (req, res, next) => {
-    console.log(dist)
-    app.use(express.static(dist));
-
-    console.log(req.url)
-    console.log(!req.url.includes('phpmyadmin'))
-    if (!req.url.includes('phpmyadmin')) {
-        console.log('includes')
-        console.log(dist + 'index.html')
-        res.set({ 'Content-Length': 70 });
+    if (!res.headersSent) {
+        console.log('!!!!'+dist + 'index.html')
         res.sendFile(dist + 'index.html');
     }
+    if (!req.url.includes('phpmyadmin')) {
+        // res.set({'Content-Length': 70, 'Content-Range': 'bytes 0-999/*'});
 
-    next();
-};
+    }
+
+    // next();
+});
 
 
 
