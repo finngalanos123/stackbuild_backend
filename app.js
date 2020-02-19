@@ -63,6 +63,7 @@ fixRoutes = (req, res, next) => {
     if (!req.url.includes('phpmyadmin')) {
         console.log('includes')
         console.log(dist + 'index.html')
+        res.set({ 'Content-Length': 70 });
         res.sendFile(dist + 'index.html');
     }
 
