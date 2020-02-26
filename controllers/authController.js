@@ -3,6 +3,10 @@ const jwt = require('jsonwebtoken');
 const db = require('../models');
 const Users = db.users;
 
+
+const nodemailer = require('nodemailer');
+const constants = require('../config/constants');
+
 const showIfErrors = require('../helpers/showIfErrors');
 
 
@@ -57,4 +61,29 @@ exports.logout = (req, res) => {
 
 exports.register = (req, res) => {
     console.log('registerssss')
+};
+
+
+exports.sendConfirmationCodeEmail = (req, res) => {
+    if (!showIfErrors(req, res)) {
+        // send mail with defined transport object
+        constants.transporter.sendMail(constants.confirmationCodeMailOptions, (error, info) => {
+            if (error) {
+                res.status(500).json({msg: error.toString()})
+            } else if (info) {
+
+                console.log('Message sent: %s', info.messageId);
+                // Preview only available when sending through an Ethereal account
+                console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                res.json("OK");
+            }
+
+
+        });
+    }
+
+
+
+
+
 };
